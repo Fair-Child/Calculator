@@ -3,6 +3,8 @@ package Calculator;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +23,7 @@ public class GUI implements ActionListener {
 //            butCos, butSin, butTan, butxpowerofy, butlog, butrate;
 
     private final JButton but[], butSquare, butSquareRoot, butPlus, butMinus, butMultiply, butDivide,
-        butSin, butCos, butTan, butSinh, butCosh, butTanh, butEPower, butCancel, butEqual;
+        butSin, butCos, butTan, butSinh, butCosh, butTanh, butEPower, butCancel, butEqual, butStd,comma;
     private final Functions func;
 
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
@@ -53,6 +55,8 @@ public class GUI implements ActionListener {
         butCosh = new JButton("Cosh");
         butTanh = new JButton("Tanh");
         butEPower = new JButton("e^x");
+        butStd = new JButton("std");
+        comma = new JButton(",");
 
 
 //        butxpowerofy = new JButton("x^y");
@@ -142,6 +146,11 @@ public class GUI implements ActionListener {
 
         panel.add(butEqual);
         butEqual.addActionListener(this);
+        
+        panel.add(butStd);
+        butStd.addActionListener(this);
+        panel.add(comma);
+        comma.addActionListener(this);
 
     }
 
@@ -154,43 +163,44 @@ public class GUI implements ActionListener {
                 text.replaceSelection(buttonValue[i]);
                 return;
             }
+          
         }
 
         if (source == butPlus) {
-            writer(func.SimpleCalculation(Functions.simpleCal.plus, reader()));
+            writer(func.SimpleCalculation(Functions.SimpleCal.plus, reader()));
         }
 
         if (source == butMinus) {
-            writer(func.SimpleCalculation(Functions.simpleCal.minus, reader()));
+            writer(func.SimpleCalculation(Functions.SimpleCal.minus, reader()));
         }
 
         if (source == butMultiply) {
-            writer(func.SimpleCalculation(Functions.simpleCal.multiply, reader()));
+            writer(func.SimpleCalculation(Functions.SimpleCal.multiply, reader()));
         }
 
         if (source == butDivide) {
-            writer(func.SimpleCalculation(Functions.simpleCal.divide, reader()));
+            writer(func.SimpleCalculation(Functions.SimpleCal.divide, reader()));
         }
 
         if (source == butEPower) {
-            writer(func.ComplexCalculation(Functions.complexCal.ePower, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.ePower, reader()));
         }
 
         if (source == butSquareRoot) {
-            writer(func.ComplexCalculation(Functions.complexCal.squareRoot,
+            writer(func.ComplexCalculation(Functions.ComplexCal.squareRoot,
                     reader()));
         }
 
         if (source == butSin) {
-            writer(func.ComplexCalculation(Functions.complexCal.sin, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.sin, reader()));
         }
 
         if (source == butCos) {
-            writer(func.ComplexCalculation(Functions.complexCal.cos, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.cos, reader()));
         }
 
         if (source == butTan) {
-            writer(func.ComplexCalculation(Functions.complexCal.tan, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.tan, reader()));
         }
 
         if (source == butCancel) {
@@ -198,19 +208,29 @@ public class GUI implements ActionListener {
         }
 
         if (source == butSinh) {
-            writer(func.ComplexCalculation(Functions.complexCal.sinh, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.sinh, reader()));
         }
 
         if (source == butCosh) {
-            writer(func.ComplexCalculation(Functions.complexCal.cosh, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.cosh, reader()));
         }
 
         if (source == butTanh) {
-            writer(func.ComplexCalculation(Functions.complexCal.tanh, reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.tanh, reader()));
         }
 
         if (source == butEqual) {
-            writer(func.EqualCalculation(reader()));
+            text.setText(func.EqualCalculation(reader()).toString());
+        }
+        
+        if (source == butStd) {
+            writer(func.ComplexCalculation(Functions.ComplexCal.std, reader()));
+        }
+        
+        if (source == comma) {
+            func.addToNumSet(reader());
+            text.setText("");
+            
         }
 
         text.selectAll();
@@ -218,12 +238,26 @@ public class GUI implements ActionListener {
     }
 
     public Double reader() {
+        Double num = null;
+        String str;
+        str = text.getText();
+        if(!str.isEmpty())
+            num = Double.valueOf(str);
+
+        return num;
+    }
+    
+    public List<Double> setReader() {
         Double num;
         String str;
         str = text.getText();
-        num = Double.valueOf(str);
-
-        return num;
+        String[] terms = str.split(",");
+        List<Double> numbers = new ArrayList<Double>();
+        
+	for (String term : terms) {
+            numbers.add(Double.parseDouble(term));
+	}
+        return numbers;
     }
 
     public void writer(final Double num) {
