@@ -27,3 +27,6 @@ out/production/Calculator/META-INF/Calculator.kotlin_module
 .idea/vcs.xml
 .idea/modules.xml
 .idea/misc.xml
+/nbproject/private/
+/build/
+/dist/

@@ -1,19 +1,28 @@
 package Calculator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Functions {
 
-
-    public enum simpleCal {
+    void addToNumSet(Double reader) {
+        if(reader != null)
+            set.add(reader);
+    }
+    
+    public enum SimpleCal {
         normal, plus, minus, multiply, divide, xPowerY
     }
 
-    public enum complexCal {
-        square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower,
+    public enum ComplexCal {
+        square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std
     }
 
     private Double num1, num2;
+    
+    private List<Double>  set = new ArrayList<>();
 
-    private simpleCal func = simpleCal.normal;
+    private SimpleCal func = SimpleCal.normal;
 
 
 
@@ -49,19 +58,38 @@ public class Functions {
 
     }
 
+    public Double StandardDeviation(List<Double> numbers) {
 
+        double mean = 0;
+        if(numbers.size() == 1 || numbers.size() == 0){
+            return 0.0;
+        }
+        for (double number : numbers) {
+            mean += number;
+        }
+        mean = mean / numbers.size();
+        double sum = 0;
+        for (double number : numbers) {
+            sum = sum + (number - mean) * (number - mean);
+        }
+        double standardDev = squareRoot(sum / numbers.size());
 
+        return standardDev;
+    }
 
+    public static double squareRoot(double number) {
+        double temp;
 
+        double sr = number / 2;
 
-    //standard deviation function
-//    public static double stdDev(String s){
-//
-//        String[] terms = s.split("\\s+");
-//        list<Double> numbers = new ArrayList<~>();
-//
-//    }
+        if(number != 0)
+            do {
+                temp = sr;
+                sr = (temp + (number / temp)) / 2;
+            } while ((temp - sr) != 0);
 
+        return sr;
+    }
 
 
     //e^x function
@@ -137,9 +165,9 @@ public class Functions {
 
     }
 
-    public Double SimpleCalculation(simpleCal newFunc, Double num) {
+    public Double SimpleCalculation(SimpleCal newFunc, Double num) {
 
-        if (func == simpleCal.normal) {
+        if (func == SimpleCal.normal) {
             num2 = 0.0;
             num1 = num;
             func = newFunc;
@@ -156,7 +184,7 @@ public class Functions {
 
     public Double EqualCalculation(Double num) {
 
-        return SimpleCalculation(simpleCal.normal, num);
+        return SimpleCalculation(SimpleCal.normal, num);
 
     }
 
@@ -164,12 +192,13 @@ public class Functions {
 
         num1 = 0.0;
         num2 = 0.0;
-        func = simpleCal.normal;
+        set = new ArrayList<>();
+        func = SimpleCal.normal;
         return Double.NaN;
 
     }
 
-    public Double ComplexCalculation(complexCal newFunc, Double num) {
+    public Double ComplexCalculation(ComplexCal newFunc, Double num) {
         //square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, x^y
         switch (newFunc) {
 
@@ -199,7 +228,10 @@ public class Functions {
 
             case ePower:
                 return ePower(num);
-
+            
+            case std:
+                return StandardDeviation(set);
+                
             default:
                 return Double.NaN;
 
