@@ -69,7 +69,7 @@ public class GUI implements ActionListener {
 
     public void init() {
         frame.setVisible(true);
-        frame.setSize(350, 300);
+        frame.setSize(350, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
