@@ -16,11 +16,11 @@ public class Functions {
     }
 
     public enum EqualCalculation {
-        simple, ePower
+        simple, ePower, piPower
     }
 
     public enum ComplexCal {
-        square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std
+        square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std, piPower
     }
 
     private Double num1, num2;
@@ -93,7 +93,9 @@ public class Functions {
 
         double sum = 0;
         // iterate over the values i=0,1,...,14
-        sum = pical(x);
+        for (int i = 0; i < 15; i++) {
+            sum = sum + power(x, i) / factorial(i);
+        }
 
         return sum;
 
@@ -176,6 +178,8 @@ public class Functions {
     public Double EqualCalculation(Double num, EqualCalculation type) {
 
         switch (type) {
+            case piPower:
+                return ComplexCalculation(ComplexCal.piPower, num);
             case simple:
                 return SimpleCalculation(SimpleCal.normal, num);
             case ePower:
@@ -200,6 +204,9 @@ public class Functions {
         //square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, x^y
         switch (newFunc) {
 
+            case piPower:
+                return piCal(num);
+                
             case square:
                 return num * num;
 
@@ -237,7 +244,7 @@ public class Functions {
 
     }
 
-    public double pical(double input) {
+    public double piCal(double input) {
         double pi = (double) 3.14159; //pi number
         double temp = 1;
         double temp4 = 1;

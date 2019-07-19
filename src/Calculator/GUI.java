@@ -24,12 +24,14 @@ public class GUI implements ActionListener {
 //            butCos, butSin, butTan, butxpowerofy, butlog, butrate;
 
     private final JButton but[], butSquare, butSquareRoot, butPlus, butMinus, butMultiply, butDivide,
-        butSin, butCos, butTan, butSinh, butCosh, butTanh, butEPower, butCancel, butEqual, butStd,comma;
+        butSin, butCos, butTan, butSinh, butCosh, butTanh, butEPower, butCancel, butEqual, butStd,comma, butPiPower;
     private final Functions func;
 
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
             "7", "8", "9" };
     private boolean ePowerSet = false;
+    private boolean piSet = false;
+
 
     public GUI() {
         frame = new JFrame("Calculator");
@@ -57,6 +59,7 @@ public class GUI implements ActionListener {
         butCosh = new JButton("Cosh");
         butTanh = new JButton("Tanh");
         butEPower = new JButton("e^x");
+        butPiPower = new JButton("pi^x");
         butStd = new JButton("std");
         comma = new JButton(",");
 
@@ -118,6 +121,9 @@ public class GUI implements ActionListener {
 
         panel.add(butEPower);
         butEPower.addActionListener(this);
+        
+        panel.add(butPiPower);
+        butPiPower.addActionListener(this);
 
         panel.add(butSquareRoot);
         butSquareRoot.addActionListener(this);
@@ -188,6 +194,10 @@ public class GUI implements ActionListener {
             text.setText("e^");
             ePowerSet = true;
         }
+        if (source == butPiPower) {
+            text.setText("pi^");
+            piSet = true;
+        }
 
         if (source == butSquareRoot) {
             writer(func.ComplexCalculation(Functions.ComplexCal.squareRoot,
@@ -226,6 +236,10 @@ public class GUI implements ActionListener {
             if(ePowerSet == true){
                 ePowerSet = false;
                 text.setText(func.EqualCalculation(reader(), EqualCalculation.ePower).toString());
+            }
+            else if(piSet == true){
+                ePowerSet = false;
+                text.setText(func.EqualCalculation(reader(), EqualCalculation.piPower).toString());
             }
             else
                 text.setText(func.EqualCalculation(reader(), EqualCalculation.simple).toString());
