@@ -1,5 +1,6 @@
 package Calculator;
 
+import Calculator.Functions.EqualCalculation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class GUI implements ActionListener {
 
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
             "7", "8", "9" };
+    private boolean ePowerSet = false;
 
     public GUI() {
         frame = new JFrame("Calculator");
@@ -183,7 +185,8 @@ public class GUI implements ActionListener {
         }
 
         if (source == butEPower) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.ePower, reader()));
+            text.setText("e^");
+            ePowerSet = true;
         }
 
         if (source == butSquareRoot) {
@@ -220,7 +223,12 @@ public class GUI implements ActionListener {
         }
 
         if (source == butEqual) {
-            text.setText(func.EqualCalculation(reader()).toString());
+            if(ePowerSet == true){
+                ePowerSet = false;
+                text.setText(func.EqualCalculation(reader(), EqualCalculation.ePower).toString());
+            }
+            else
+                text.setText(func.EqualCalculation(reader(), EqualCalculation.simple).toString());
         }
         
         if (source == butStd) {

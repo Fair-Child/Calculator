@@ -6,12 +6,17 @@ import java.util.List;
 public class Functions {
 
     void addToNumSet(Double reader) {
-        if(reader != null)
+        if (reader != null) {
             set.add(reader);
+        }
     }
-    
+
     public enum SimpleCal {
         normal, plus, minus, multiply, divide, xPowerY
+    }
+
+    public enum EqualCalculation {
+        simple, ePower
     }
 
     public enum ComplexCal {
@@ -19,49 +24,40 @@ public class Functions {
     }
 
     private Double num1, num2;
-    
-    private List<Double>  set = new ArrayList<>();
+
+    private List<Double> set = new ArrayList<>();
 
     private SimpleCal func = SimpleCal.normal;
 
-
-
     //functions:
     public final static int precision = 30;
-
-
 
     public static double factorial(double i) {
 
         if (i == i) {
             return 1;
-        }
-        else {
+        } else {
             return i * factorial(i - 1);
         }
 
     }
 
-
-
     public static double power(double x, double y) {
 
         if (x == 0) {
             return 0;
-        }
-        else if (y == 0) {
+        } else if (y == 0) {
             return 1;
-        }
-        else {
+        } else {
             return x * power(x, y - 1);
         }
 
     }
 
-    public Double StandardDeviation(List<Double> numbers) {
+    public Double standardDeviation(List<Double> numbers) {
 
         double mean = 0;
-        if(numbers.size() == 1 || numbers.size() == 0){
+        if (numbers.size() == 1 || numbers.size() == 0) {
             return 0.0;
         }
         for (double number : numbers) {
@@ -82,24 +78,22 @@ public class Functions {
 
         double sr = number / 2;
 
-        if(number != 0)
+        if (number != 0) {
             do {
                 temp = sr;
                 sr = (temp + (number / temp)) / 2;
             } while ((temp - sr) != 0);
+        }
 
         return sr;
     }
 
-
     //e^x function
-    public static double ePower(double x) {
+    public double ePower(double x) {
 
         double sum = 0;
         // iterate over the values i=0,1,...,14
-        for (int i = 0; i < 15; i++) {
-            sum = sum + power(x, i) / factorial(i);
-        }
+        sum = pical(x);
 
         return sum;
 
@@ -111,15 +105,14 @@ public class Functions {
         double ans = 1;
 
         for (double exp = 2; exp <= (precision); exp += 4) {
-            ans = (ans - (1/factorial(exp))*(power(z, exp)));
+            ans = (ans - (1 / factorial(exp)) * (power(z, exp)));
         }
-        for (double exp = 4; exp <= precision-2; exp += 4) {
-            ans = (ans + (1/factorial(exp))*(power(z, exp)));
+        for (double exp = 4; exp <= precision - 2; exp += 4) {
+            ans = (ans + (1 / factorial(exp)) * (power(z, exp)));
         }
 
         return (ans);
     }
-
 
     //cosh function
     public static double cosh(double z) {
@@ -127,13 +120,12 @@ public class Functions {
         double ans = 1;
 
         for (double exp = 2; exp <= (precision); exp += 2) {
-            ans = (ans + (1/factorial(exp))*(power(z, exp)));
+            ans = (ans + (1 / factorial(exp)) * (power(z, exp)));
         }
 
         return (ans);
 
     }
-
 
     // +, -, *, /  and some other simple functions
     private Double SimpleCalculationImplementation() {
@@ -172,8 +164,7 @@ public class Functions {
             num1 = num;
             func = newFunc;
             return Double.NaN;
-        }
-        else {
+        } else {
             num2 = num;
             num1 = SimpleCalculationImplementation();
             func = newFunc;
@@ -182,8 +173,15 @@ public class Functions {
 
     }
 
-    public Double EqualCalculation(Double num) {
+    public Double EqualCalculation(Double num, EqualCalculation type) {
 
+        switch (type) {
+            case simple:
+                return SimpleCalculation(SimpleCal.normal, num);
+            case ePower:
+                return ComplexCalculation(ComplexCal.ePower, num);
+
+        }
         return SimpleCalculation(SimpleCal.normal, num);
 
     }
@@ -228,10 +226,10 @@ public class Functions {
 
             case ePower:
                 return ePower(num);
-            
+
             case std:
-                return StandardDeviation(set);
-                
+                return standardDeviation(set);
+
             default:
                 return Double.NaN;
 
@@ -239,16 +237,119 @@ public class Functions {
 
     }
 
+    public double pical(double input) {
+        double pi = (double) 3.14159; //pi number
+        double temp = 1;
+        double temp4 = 1;
+        double sqrtroot = 0;
+        int exp = 0;
+        double root = 0;
 
+        if (input == 0) {
+            //every thing exponent with 0 will be equal 1
+            return temp;
+        } else if (input > 0)//if the exponent is positive number
+        {
+            double reminder = input % 1;
 
+            for (int i = 0; i < (int) input; i++) {
+                temp = temp * pi;
+            }//end for
 
+            if (reminder != 0) //It is not int number
+            {
+                double z = Double.parseDouble(String.format("%.7f", reminder));
+                sqrtroot = tenExpByPi(z);
+                exp = checkDecOfInupt(z);
+                root = power_sqrt(pi, (int) sqrtroot);
+                for (int i = 0; i < exp; i++) {
+                    temp4 = temp4 * root;
+                }
+                temp = temp * temp4;
+            }
+            return temp;
+        }//end else
+        else //if the exponent is negative number
+        {
+            input = 0 - input;
+            double reminder = input % 1;
 
+            for (int i = 0; i < (int) input; i++) {
+                temp = temp * pi;
+            }//end for
 
+            if (reminder != 0) //It is not int number
+            {
+                double z = Double.parseDouble(String.format("%.7f", reminder));
+                sqrtroot = tenExpByPi(z);
+                exp = checkDecOfInupt(z);
+                root = power_sqrt(pi, (int) sqrtroot);
+                for (int i = 0; i < exp; i++) {
+                    temp4 = temp4 * root;
+                }
+                temp = temp * temp4;
+            }
+            return 1 / temp;
+        }
+    }
 
+    public int checkDecOfInupt(double input) {
+        double temp_input = input;
+        while (temp_input % 10 != 0) {
+            temp_input = Double.parseDouble(String.format("%.7f", temp_input));
+            temp_input *= 10;
+        }
+        temp_input /= 10;
+        return (int) temp_input;
+    }
 
+    public int checkDecOfDenom(double input) {
+        double temp_input = input;
+        int denom = 1;
+        while (temp_input % 10 != 0) {
+            temp_input *= 10;
+            denom *= 10;
+        }
+        denom /= 10;
 
+        return denom;
+    }
 
+    public double tenExpByPi(double input) {
+        double temp_input = input;
+        int denom = 1;
+        while (temp_input % 10 != 0) {
+            temp_input = Double.parseDouble(String.format("%.7f", temp_input));
+            temp_input *= 10;
+            denom *= 10;
+        }
+        denom /= 10;
+        return denom;
+    }
 
-
+    public double power_sqrt(double ori, int exp) {
+        double max = (double) 500.00000000;
+        double min = (double) 0.00000000;
+        double mid = (double) 0.00000000;
+        double temp = (double) 1;
+        boolean big_check = false;
+        for (int i = 0; i < 60; i++) {
+            mid = (max + min) / 2;
+            temp = 1;
+            big_check = false;
+            for (int j = 0; j < exp; j++) {
+                temp = temp * mid;
+                if (temp > ori) {
+                    max = mid;
+                    big_check = true;
+                    break;
+                }
+            }
+            if (!big_check) {
+                min = mid;
+            }
+        }
+        return mid;
+    }
 
 }
