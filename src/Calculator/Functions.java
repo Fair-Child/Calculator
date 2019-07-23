@@ -15,9 +15,9 @@ public class Functions {
         normal, plus, minus, multiply, divide, xPowerY
     }
 
-    public enum EqualCalculation {
-        simple, ePower, piPower
-    }
+//    public enum EqualCalculation {
+//        simple, ePower, piPower
+//    }
 
     public enum ComplexCal {
         square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std, piPower
@@ -29,8 +29,123 @@ public class Functions {
 
     private SimpleCal func = SimpleCal.normal;
 
+
+
     //functions:
     public final static int precision = 30;
+
+
+
+    // +, -, *, /  and some other simple functions
+    private Double SimpleCalculationImplementation() {
+
+        switch (func) {
+
+            case normal:
+                return num2;
+
+            case plus:
+                return num1 + num2;
+
+            case minus:
+                return num1 - num2;
+
+            case multiply:
+                return num1 * num2;
+
+            case divide:
+                return num1 / num2;
+
+            case xPowerY:
+                return Math.pow(num1, num2);
+
+            default:
+                return -1.0;
+
+        }
+
+    }
+
+    public Double SimpleCalculation(SimpleCal newFunc, Double num) {
+
+        if (func == SimpleCal.normal) {
+            num2 = 0.0;
+            num1 = num;
+            func = newFunc;
+            return Double.NaN;
+        } else {
+            num2 = num;
+            num1 = SimpleCalculationImplementation();
+            func = newFunc;
+            return num1;
+        }
+
+    }
+
+    public Double EqualCalculation(Double num) {
+
+        return SimpleCalculation(SimpleCal.normal, num);
+
+    }
+
+    public Double reset() {
+
+        num1 = 0.0;
+        num2 = 0.0;
+        set = new ArrayList<>();
+        func = SimpleCal.normal;
+        return Double.NaN;
+
+    }
+
+    public Double ComplexCalculation(ComplexCal newFunc, Double num) {
+        //square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, x^y
+        switch (newFunc) {
+
+
+            case square:
+                return num * num;
+
+            case squareRoot:
+                return Math.sqrt(num);
+
+            case sin:
+                return Math.sin(num);
+
+            case cos:
+                return cos(num);
+
+            case tan:
+                return Math.tan(num);
+
+            case sinh:
+                return Math.sinh(num);
+
+            case cosh:
+                return cosh(num);
+
+            case tanh:
+                return Math.tanh(num);
+
+            case ePower:
+                return ePower(num);
+
+            case std:
+                return standardDeviation(set);
+
+            case piPower:
+                return piCal(num);
+
+            default:
+                return Double.NaN;
+
+        }
+
+    }
+
+
+
+
 
     public static double factorial(double i) {
 
@@ -129,120 +244,9 @@ public class Functions {
 
     }
 
-    // +, -, *, /  and some other simple functions
-    private Double SimpleCalculationImplementation() {
 
-        switch (func) {
 
-            case normal:
-                return num2;
 
-            case plus:
-                return num1 + num2;
-
-            case minus:
-                return num1 - num2;
-
-            case multiply:
-                return num1 * num2;
-
-            case divide:
-                return num1 / num2;
-
-            case xPowerY:
-                return Math.pow(num1, num2);
-
-            default:
-                return -1.0;
-
-        }
-
-    }
-
-    public Double SimpleCalculation(SimpleCal newFunc, Double num) {
-
-        if (func == SimpleCal.normal) {
-            num2 = 0.0;
-            num1 = num;
-            func = newFunc;
-            return Double.NaN;
-        } else {
-            num2 = num;
-            num1 = SimpleCalculationImplementation();
-            func = newFunc;
-            return num1;
-        }
-
-    }
-
-    public Double EqualCalculation(Double num, EqualCalculation type) {
-
-        switch (type) {
-            case piPower:
-                return ComplexCalculation(ComplexCal.piPower, num);
-            case simple:
-                return SimpleCalculation(SimpleCal.normal, num);
-            case ePower:
-                return ComplexCalculation(ComplexCal.ePower, num);
-
-        }
-        return SimpleCalculation(SimpleCal.normal, num);
-
-    }
-
-    public Double reset() {
-
-        num1 = 0.0;
-        num2 = 0.0;
-        set = new ArrayList<>();
-        func = SimpleCal.normal;
-        return Double.NaN;
-
-    }
-
-    public Double ComplexCalculation(ComplexCal newFunc, Double num) {
-        //square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, x^y
-        switch (newFunc) {
-
-            case piPower:
-                return piCal(num);
-                
-            case square:
-                return num * num;
-
-            case squareRoot:
-                return Math.sqrt(num);
-
-            case sin:
-                return Math.sin(num);
-
-            case cos:
-                return cos(num);
-
-            case tan:
-                return Math.tan(num);
-
-            case sinh:
-                return Math.sinh(num);
-
-            case cosh:
-                return cosh(num);
-
-            case tanh:
-                return Math.tanh(num);
-
-            case ePower:
-                return ePower(num);
-
-            case std:
-                return standardDeviation(set);
-
-            default:
-                return Double.NaN;
-
-        }
-
-    }
 
     public double piCal(double input) {
         double pi = (double) 3.14159; //pi number

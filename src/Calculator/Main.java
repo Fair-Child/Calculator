@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GUI uiCal = new GUI();
-        uiCal.init();
+        GUI cal = new GUI();
+        cal.init();
 
     }
 

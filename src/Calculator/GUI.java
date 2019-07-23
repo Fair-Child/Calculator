@@ -1,6 +1,5 @@
 package Calculator;
 
-import Calculator.Functions.EqualCalculation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,18 +18,14 @@ public class GUI implements ActionListener {
     private final JPanel panel;
     private final JTextArea text;
 
-//    private final JButton but[], butPlus, butMinus, butMultiply, butDivide,
-//            butEqual, butCancel, butSquareRoot, butSquare, butOneDevidedBy,
-//            butCos, butSin, butTan, butxpowerofy, butlog, butrate;
 
-    private final JButton but[], butSquare, butSquareRoot, butPlus, butMinus, butMultiply, butDivide,
-        butSin, butCos, butTan, butSinh, butCosh, butTanh, butEPower, butCancel, butEqual, butStd,comma, butPiPower;
+    private final JButton but[], butSquare, butSquareRoot, butPlus, butMinus, butMultiply, butDivide, butCos, butCosh,
+            butEPower, butPiPower, butStd, butComma, butCancel, butEqual;
+
     private final Functions func;
 
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
             "7", "8", "9" };
-    private boolean ePowerSet = false;
-    private boolean piSet = false;
 
 
     public GUI() {
@@ -52,25 +47,20 @@ public class GUI implements ActionListener {
         butSquare = new JButton("x^2");
         butSquareRoot = new JButton("√");
 
-        butSin = new JButton("Sin");
         butCos = new JButton("Cos");
-        butTan = new JButton("Tan");
-        butSinh = new JButton("Sinh");
         butCosh = new JButton("Cosh");
-        butTanh = new JButton("Tanh");
+
         butEPower = new JButton("e^x");
         butPiPower = new JButton("pi^x");
         butStd = new JButton("std");
-        comma = new JButton(",");
-
-
-//        butxpowerofy = new JButton("x^y");
-//        butlog = new JButton("log10(x)");
+        butComma = new JButton(",");
 
         butCancel = new JButton("C");
         butEqual = new JButton("=");
         func = new Functions();
     }
+
+
 
     public void init() {
         frame.setVisible(true);
@@ -92,6 +82,8 @@ public class GUI implements ActionListener {
         panel.add(butPlus);
         butPlus.addActionListener(this);
 
+
+
         panel.add(but[4]);
         but[4].addActionListener(this);
 
@@ -103,6 +95,8 @@ public class GUI implements ActionListener {
 
         panel.add(butMinus);
         butMinus.addActionListener(this);
+
+
 
         panel.add(but[7]);
         but[7].addActionListener(this);
@@ -116,14 +110,13 @@ public class GUI implements ActionListener {
         panel.add(butMultiply);
         butMultiply.addActionListener(this);
 
+
+
         panel.add(but[0]);
         but[0].addActionListener(this);
 
-        panel.add(butEPower);
-        butEPower.addActionListener(this);
-        
-        panel.add(butPiPower);
-        butPiPower.addActionListener(this);
+        panel.add(butSquare);
+        butSquare.addActionListener(this);
 
         panel.add(butSquareRoot);
         butSquareRoot.addActionListener(this);
@@ -131,36 +124,38 @@ public class GUI implements ActionListener {
         panel.add(butDivide);
         butDivide.addActionListener(this);
 
-        panel.add(butSin);
-        butSin.addActionListener(this);
+
+
+        panel.add(butEPower);
+        butEPower.addActionListener(this);
 
         panel.add(butCos);
         butCos.addActionListener(this);
 
-        panel.add(butTan);
-        butTan.addActionListener(this);
+        panel.add(butCosh);
+        butCosh.addActionListener(this);
 
         panel.add(butCancel);
         butCancel.addActionListener(this);
 
-        panel.add(butSinh);
-        butSinh.addActionListener(this);
 
-        panel.add(butCosh);
-        butCosh.addActionListener(this);
 
-        panel.add(butTanh);
-        butTanh.addActionListener(this);
+        panel.add(butPiPower);
+        butPiPower.addActionListener(this);
+
+        panel.add(butStd);
+        butStd.addActionListener(this);
+
+        panel.add(butComma);
+        butComma.addActionListener(this);
 
         panel.add(butEqual);
         butEqual.addActionListener(this);
-        
-        panel.add(butStd);
-        butStd.addActionListener(this);
-        panel.add(comma);
-        comma.addActionListener(this);
+
 
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -190,69 +185,58 @@ public class GUI implements ActionListener {
             writer(func.SimpleCalculation(Functions.SimpleCal.divide, reader()));
         }
 
-        if (source == butEPower) {
-            text.setText("e^");
-            ePowerSet = true;
-        }
-        if (source == butPiPower) {
-            text.setText("pi^");
-            piSet = true;
+
+
+        if (source == butSquare) {
+            writer(func.ComplexCalculation(Functions.ComplexCal.square, reader()));
         }
 
         if (source == butSquareRoot) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.squareRoot,
-                    reader()));
+            writer(func.ComplexCalculation(Functions.ComplexCal.squareRoot, reader()));
         }
 
-        if (source == butSin) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.sin, reader()));
-        }
+
 
         if (source == butCos) {
             writer(func.ComplexCalculation(Functions.ComplexCal.cos, reader()));
-        }
-
-        if (source == butTan) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.tan, reader()));
-        }
-
-        if (source == butCancel) {
-            writer(func.reset());
-        }
-
-        if (source == butSinh) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.sinh, reader()));
         }
 
         if (source == butCosh) {
             writer(func.ComplexCalculation(Functions.ComplexCal.cosh, reader()));
         }
 
-        if (source == butTanh) {
-            writer(func.ComplexCalculation(Functions.ComplexCal.tanh, reader()));
+
+
+        if (source == butEPower) {
+            writer(func.ComplexCalculation(Functions.ComplexCal.ePower, reader()));
         }
 
-        if (source == butEqual) {
-            if(ePowerSet == true){
-                ePowerSet = false;
-                text.setText(func.EqualCalculation(reader(), EqualCalculation.ePower).toString());
-            }
-            else if(piSet == true){
-                ePowerSet = false;
-                text.setText(func.EqualCalculation(reader(), EqualCalculation.piPower).toString());
-            }
-            else
-                text.setText(func.EqualCalculation(reader(), EqualCalculation.simple).toString());
+        if (source == butPiPower) {
+            writer(func.ComplexCalculation(Functions.ComplexCal.piPower, reader()));
         }
-        
+
+
+
         if (source == butStd) {
             writer(func.ComplexCalculation(Functions.ComplexCal.std, reader()));
         }
-        
-        if (source == comma) {
+
+        if (source == butComma) {
             func.addToNumSet(reader());
             text.setText("");
-            
+
+        }
+
+
+
+        if (source == butCancel) {
+            writer(func.reset());
+        }
+
+        if (source == butEqual) {
+
+            writer(func.EqualCalculation(reader()));
+
         }
 
         text.selectAll();
@@ -276,9 +260,9 @@ public class GUI implements ActionListener {
         String[] terms = str.split(",");
         List<Double> numbers = new ArrayList<Double>();
         
-	for (String term : terms) {
-            numbers.add(Double.parseDouble(term));
-	}
+        for (String term : terms) {
+                numbers.add(Double.parseDouble(term));
+        }
         return numbers;
     }
 
