@@ -12,12 +12,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		System.out.println(OS);
-//		
-//		if(isWindows()) {
-//			GUIw cal = new GUIw();
-//		     cal.init();
-//		}
-//		else
+		
+		if(isWindows()) {
+			GUIw cal = new GUIw();
+		     cal.init();
+		}
+		else
 		{
     	GUI cal = new GUI();
         	cal.init();
