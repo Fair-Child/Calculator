@@ -149,24 +149,25 @@ public class Functions {
 
     public static double factorial(double i) {
 
-        if (i == i) {
-            return 1;
-        } else {
-            return i * factorial(i - 1);
-        }
+    	if (i > 1) {
+			return i * factorial(i - 1);
+		} else {
+			return 1;
+		}
 
     }
 
     public static double power(double x, double y) {
 
-        if (x == 0) {
-            return 0;
-        } else if (y == 0) {
-            return 1;
-        } else {
-            return x * power(x, y - 1);
-        }
+    	double ret = 1;
 
+		// iterate over the values i=1,...,n.
+		for (int i = 1; i <= y; i++) {
+			// multiply factorial by each value of i.
+			ret = ret * x;
+		}
+
+		return ret;
     }
 
     public Double standardDeviation(List<Double> numbers) {
