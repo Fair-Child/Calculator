@@ -29,7 +29,11 @@ public class GUIw implements ActionListener{
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
             "7", "8", "9" };
 
-
+    /**
+     *The Constructor that construct the GUI interface and buttons
+     *
+     * @author Hong Fei Liang
+     */
     public GUIw() {
         frame = new JFrame("Calculator-w");
         frame.setResizable(false);
@@ -48,7 +52,7 @@ public class GUIw implements ActionListener{
         butDivide = new JButton("/");
 
         butSquare = new JButton("x^2");
-        butSquareRoot = new JButton("xˆsqrt");
+        butSquareRoot = new JButton("xï¿½sqrt");
 
         butCos = new JButton("Cos");
         butCosh = new JButton("Cosh");
@@ -63,8 +67,11 @@ public class GUIw implements ActionListener{
         func = new Functions();
     }
 
-
-
+    /**
+     * The method to initiate the buttons of GUI
+     *
+     * @author Hong Fei Liang
+     */
     public void init() {
     	GridBagConstraints c = new GridBagConstraints();
         frame.setVisible(true);
@@ -260,6 +267,12 @@ public class GUIw implements ActionListener{
 
 
     @Override
+    /**
+     * The method to active the functions that related with the buttons
+     *
+     * @author Hong Fei Liang
+     * @param e the button that has been clicked
+     */
     public void actionPerformed(ActionEvent e) {
         final Object source = e.getSource();
 
@@ -345,6 +358,12 @@ public class GUIw implements ActionListener{
         
     }
 
+    /**
+     * The method to read the input from user
+     *
+     * @author Hong Fei Liang
+     * @return number that user input
+     */
     public Double reader() {
         Double num = null;
         String str;
@@ -354,7 +373,13 @@ public class GUIw implements ActionListener{
 
         return num;
     }
-    
+
+    /**
+     * The method that read a list of numbers
+     *
+     * @author Tahar Mustapha
+     * @return the list of numbers
+     */
     public List<Double> setReader() {
         Double num;
         String str;
@@ -368,6 +393,12 @@ public class GUIw implements ActionListener{
         return numbers;
     }
 
+    /**
+     * The method to output the result of calculation to the text board
+     *
+     * @author Hong Fei Liang
+     * @param num the result of calculation
+     */
     public void writer(final Double num) {
         if (Double.isNaN(num)) {
             text.setText("");

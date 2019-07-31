@@ -15,10 +15,6 @@ public class Functions {
         normal, plus, minus, multiply, divide, xPowerY
     }
 
-//    public enum EqualCalculation {
-//        simple, ePower, piPower
-//    }
-
     public enum ComplexCal {
         square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std, piPower
     }
@@ -35,8 +31,12 @@ public class Functions {
     public final static int precision = 30;
 
 
-
-    // +, -, *, /  and some other simple functions
+    /**
+     * The simple calculation function
+     *
+     * @author Hong Fei Liang
+     * @return the result of simple calculation
+     */
     private Double SimpleCalculationImplementation() {
 
         switch (func) {
@@ -66,6 +66,14 @@ public class Functions {
 
     }
 
+    /**
+     * The function calls SimpleCalculationImplementation to implement: normal, plus, minus, multiply, divide, xPowerY
+     *
+     * @author Hong Fei Liang
+     * @param newFunc enum function name that user want to use
+     * @param num the input number
+     * @return the result of SimpleCalculationImplementation
+     */
     public Double SimpleCalculation(SimpleCal newFunc, Double num) {
 
         if (func == SimpleCal.normal) {
@@ -82,12 +90,25 @@ public class Functions {
 
     }
 
+    /**
+     * The warp function for SimpleCalculation
+     *
+     * @author Hong Fei Liang
+     * @param num the input number
+     * @return the result of SimpleCalculation
+     */
     public Double EqualCalculation(Double num) {
 
         return SimpleCalculation(SimpleCal.normal, num);
 
     }
 
+    /**
+     * The function to clean up all of the memory of calculator
+     *
+     * @author Hong Fei Liang
+     * @return a empty memory for next calculation
+     */
     public Double reset() {
 
         num1 = 0.0;
@@ -98,6 +119,14 @@ public class Functions {
 
     }
 
+    /**
+     * This function is used then user clicked on response buttons: square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, std, piPower
+     *
+     * @author Hong Fei Liang
+     * @param newFunc enum function name that user wants to use
+     * @param num the number passed in
+     * @return the result after calculation
+     */
     public Double ComplexCalculation(ComplexCal newFunc, Double num) {
         //square, squareRoot, sin, cos, tan, sinh, cosh, tanh, ePower, x^y
         switch (newFunc) {
@@ -143,10 +172,13 @@ public class Functions {
 
     }
 
-
-
-
-
+    /**
+     * A simple recursive factorial function, to be used as a helper function.
+     *
+     * @author Sean Goharzadeh
+     * @param i The base.
+     * @return The factorial of the double i passed into the function.
+     */
     public static double factorial(double i) {
 
         if (i == i) {
@@ -157,6 +189,14 @@ public class Functions {
 
     }
 
+    /**
+     * A simple recursive power function for integers, to be used a helper function.
+     *
+     * @author Sean Goharzadeh
+     * @param x The base.
+     * @param y The exponent.
+     * @return x to the power of y.
+     */
     public static double power(double x, double y) {
 
         if (x == 0) {
@@ -169,6 +209,13 @@ public class Functions {
 
     }
 
+    /**
+     * Returns the standard deviation of a data sample that is given to the function in the form of a list of doubles
+     *
+     * @author Tahar Mustapha
+     * @param  numbers list containing the sample data
+     * @return standard deviation of sample data
+     */
     public Double standardDeviation(List<Double> numbers) {
 
         double mean = 0;
@@ -188,6 +235,13 @@ public class Functions {
         return standardDev;
     }
 
+    /**
+     * Returns the square root of a any given double. The input is simply the number on which the square root function will be performed This function is used as a helper function for calculation the standard deviation
+     *
+     * @author Tahar Mustapha
+     * @param  number  double that will be square rooted
+     * @return the result of the square root
+     */
     public static double squareRoot(double number) {
         double temp;
 
@@ -203,7 +257,13 @@ public class Functions {
         return sr;
     }
 
-    //e^x function
+    /**
+     * This calculates the exponential function by integrating the power and factorial helper functions in an infinite expansion series. The series iterates 15 times, which gives it a decent precision.
+     *
+     * @author Vishal Senewiratne
+     * @param x the value of the power given to the function
+     * @return the sum of the infinite series
+     */
     public double ePower(double x) {
 
         double sum = 0;
@@ -216,7 +276,13 @@ public class Functions {
 
     }
 
-    //cos function
+    /**
+     * Cosine method. Calculates the cosine of a given number, in radians, with 17 decimal precision.
+     *
+     * @author Sean Goharzadeh
+     * @param z The double for which the cosine must be calculated.
+     * @return The cosine of z.
+     */
     public static double cos(double z) {
 
         double ans = 1;
@@ -231,7 +297,13 @@ public class Functions {
         return (ans);
     }
 
-    //cosh function
+    /**
+     * Cosh method. Calculates the cosh of a given number, in radians, with 17 decimal precision.
+     *
+     * @author Hong Fei Liang
+     * @param z The double for which the cosh must be calculated.
+     * @return The cosh of z.
+     */
     public static double cosh(double z) {
 
         double ans = 1;
@@ -244,10 +316,13 @@ public class Functions {
 
     }
 
-
-
-
-
+    /**
+     * π^x method. Calculates the π^x of a given number
+     *
+     * @author Alan Fok
+     * @param input is double for which the exponent of π must be calculated.
+     * @return The π^x of input.
+     */
     public double piCal(double input) {
         double pi = (double) 3.14159; //pi number
         double temp = 1;
@@ -304,6 +379,13 @@ public class Functions {
         }
     }
 
+    /**
+     * This function of use to convert decimal value to integer.
+     *
+     * @author Alan Fok
+     * @param  input of input number
+     * @return value of integer (1 if input is 0.1, 12 if input is 0.12)
+     */
     public int checkDecOfInupt(double input) {
         double temp_input = input;
         while (temp_input % 10 != 0) {
@@ -314,18 +396,13 @@ public class Functions {
         return (int) temp_input;
     }
 
-    public int checkDecOfDenom(double input) {
-        double temp_input = input;
-        int denom = 1;
-        while (temp_input % 10 != 0) {
-            temp_input *= 10;
-            denom *= 10;
-        }
-        denom /= 10;
-
-        return denom;
-    }
-
+    /**
+     * This function of use to calculate the decimal exponent value.
+     *
+     * @author Alan Fok
+     * @param  input of input number after decimal (0.1 if input is 3.1, 0.12 if input is 3.12)
+     * @return  decimal exponent value (10 if input is 0.1, 100 if input is 0.12)
+     */
     public double tenExpByPi(double input) {
         double temp_input = input;
         int denom = 1;
@@ -338,6 +415,14 @@ public class Functions {
         return denom;
     }
 
+    /**
+     * This function of use to calculate the nth square root.
+     *
+     * @author Alan Fok
+     * @param  exp for the exponent
+     * @param  ori for the base
+     * @return the calculated output of a nth square root
+     */
     public double power_sqrt(double ori, int exp) {
         double max = (double) 500.00000000;
         double min = (double) 0.00000000;

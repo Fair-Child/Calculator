@@ -28,6 +28,11 @@ public class GUI implements ActionListener {
             "7", "8", "9" };
 
 
+    /**
+     *The Constructor that construct the GUI interface and buttons
+     *
+     * @author Hong Fei Liang
+     */
     public GUI() {
         frame = new JFrame("Calculator");
         frame.setResizable(false);
@@ -60,8 +65,11 @@ public class GUI implements ActionListener {
         func = new Functions();
     }
 
-
-
+    /**
+     * The method to initiate the buttons of GUI
+     *
+     * @author Hong Fei Liang
+     */
     public void init() {
         frame.setVisible(true);
         frame.setSize(350, 350);
@@ -155,9 +163,13 @@ public class GUI implements ActionListener {
 
     }
 
-
-
     @Override
+    /**
+     * The method to active the functions that related with the buttons
+     *
+     * @author Hong Fei Liang
+     * @param e the button that has been clicked
+     */
     public void actionPerformed(ActionEvent e) {
         final Object source = e.getSource();
 
@@ -243,6 +255,12 @@ public class GUI implements ActionListener {
         
     }
 
+    /**
+     * The method to read the input from user
+     *
+     * @author Hong Fei Liang
+     * @return number that user input
+     */
     public Double reader() {
         Double num = null;
         String str;
@@ -252,7 +270,13 @@ public class GUI implements ActionListener {
 
         return num;
     }
-    
+
+    /**
+     * The method that read a list of numbers
+     *
+     * @author Tahar Mustapha
+     * @return the list of numbers
+     */
     public List<Double> setReader() {
         Double num;
         String str;
@@ -266,6 +290,12 @@ public class GUI implements ActionListener {
         return numbers;
     }
 
+    /**
+     * The method to output the result of calculation to the text board
+     *
+     * @author Hong Fei Liang
+     * @param num the result of calculation
+     */
     public void writer(final Double num) {
         if (Double.isNaN(num)) {
             text.setText("");
